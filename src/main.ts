@@ -4,6 +4,7 @@ import { ConsoleLogger, NestApplicationOptions } from "@nestjs/common"
 import { ConfigService } from "@nestjs/config"
 import { ServerConfig } from "./config/server.config"
 import { ValidationPipe } from "@nestjs/common"
+import helmet from "@fastify/helmet"
 import {
 	FastifyAdapter,
 	NestFastifyApplication,
@@ -23,6 +24,7 @@ async function bootstrap() {
 		options,
 	)
 
+	await app.register(helmet)
 	app.useGlobalPipes(new ValidationPipe({ transform: true }))
 	const configService = app.get(ConfigService)
 	const serverConfig = new ServerConfig(configService)
