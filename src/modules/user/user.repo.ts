@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
-import { Database } from "src/common/database/database"
+import { Database } from "src/common/services/database/database"
 import { User, UserSchema } from "./user.model"
-import { Paginated } from "src/common/database/types"
+import { Paginated } from "src/common/services/database/types"
 
 @Injectable()
 export class UserRepo {

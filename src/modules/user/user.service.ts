@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { CreateUserArgs, User } from "./user.model"
-import { Paginated } from "src/common/database/types"
+import { Paginated } from "src/common/services/database/types"
 import crypto from "node:crypto"
 import { UserRepo } from "./user.repo"
 import argon2 from "argon2"
