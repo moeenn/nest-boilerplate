@@ -4,6 +4,10 @@ import { ConsoleLogger, NestApplicationOptions } from "@nestjs/common"
 import { ConfigService } from "@nestjs/config"
 import { ServerConfig } from "./config/server.config"
 import { ValidationPipe } from "@nestjs/common"
+import {
+	FastifyAdapter,
+	NestFastifyApplication,
+} from "@nestjs/platform-fastify"
 
 const options: NestApplicationOptions = {
 	logger: new ConsoleLogger({
@@ -13,7 +17,12 @@ const options: NestApplicationOptions = {
 }
 
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule, options)
+	const app = await NestFactory.create<NestFastifyApplication>(
+		AppModule,
+		new FastifyAdapter(),
+		options,
+	)
+
 	app.useGlobalPipes(new ValidationPipe({ transform: true }))
 	const configService = app.get(ConfigService)
 	const serverConfig = new ServerConfig(configService)
